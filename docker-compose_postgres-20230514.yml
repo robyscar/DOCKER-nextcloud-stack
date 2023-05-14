@@ -1,0 +1,65 @@
+version: '3'
+
+### 
+### -p host: container	
+### Map TCP port in the CONTAINER to port HOST
+### 
+
+services:
+
+# https://github.com/postgres/postgres
+# https://github.com/docker-library/postgres
+
+  db-nextcloud:
+    image: postgres
+    restart: always
+      ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: <your_password>
+    volumes:
+      - nextcloud_db:/var/lib/postgresql/data
+
+# http://192.168.2.222/phppgadmin/
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 81:80
+    restart: always
+    environment:
+     links:
+      - db-nextcloud   
+    volumes:
+      - phpmyadmin_data:/
+
+  app:
+    image: nextcloud
+    ports:
+      - 81:80
+    links:
+      - db-nextcloud
+    volumes:
+      - nextcloud_www:/var/www/html
+      - nextcloud_data:
+    environment:
+      - POSTGRES_HOST=db-nextcloud
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=<your_password>
+volumes:
+  nextcloud_db:
+  nextcloud_www:
+  nextcloud_data:
+
+
+### Make sure to replace `<your_password>` with a strong 
+### password of your choice. After creating this file, you can start the stack by running `docker-compose up -d` in the same directory as the file. This will start both the Nextcloud and PostgreSQL containers and link them together. You can then access Nextcloud by going to `http://localhost:8080` in your web browser ³.
+### 
+### Is there anything else you would like to know?
+### 
+### Source: Conversation with Bing, 14/05/2023(1) GitHub - nextcloud/docker: ⛴ Docker image of Nextcloud. https://github.com/nextcloud/docker Accessed 14/05/2023.
+### (2) Set up nextcloud with postgres both via docker - Stack Overflow. https://stackoverflow.com/questions/65767128/set-up-nextcloud-with-postgres-both-via-docker Accessed 14/05/2023.
+### (3) Dockerize Nextcloud with Postgre and Redis - DEV Community. https://dev.to/nicolasbonnici/dockerize-nextcloud-with-postgre-and-redis-16jl Accessed 14/05/2023.
