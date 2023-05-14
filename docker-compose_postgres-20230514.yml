@@ -10,7 +10,7 @@ services:
 # https://github.com/postgres/postgres
 # https://github.com/docker-library/postgres
 
-  db-nextcloud:
+  postgresql:
     image: postgres
     restart: always
       ports:
@@ -23,6 +23,16 @@ services:
       - nextcloud_db:/var/lib/postgresql/data
 
 # http://192.168.2.222/phppgadmin/
+# https://github.com/phppgadmin/phppgadmin
+# https://www.postgresql.org/about/news/phppgadmin-7130-now-available-2107/
+# https://sourceforge.net/projects/phppgadmin/
+# 
+# https://hub.docker.com/r/qnapsystem/phppgadmin
+# docker pull qnapsystem/phppgadmin:7.13.0-1
+# 
+
+  phppgadmin"
+    image: 
 
   phpmyadmin:
     image: phpmyadmin
@@ -31,7 +41,7 @@ services:
     restart: always
     environment:
      links:
-      - db-nextcloud   
+      - postgresql   
     volumes:
       - phpmyadmin_data:/
 
@@ -40,19 +50,25 @@ services:
     ports:
       - 81:80
     links:
-      - db-nextcloud
+      - postgresql
     volumes:
       - nextcloud_www:/var/www/html
       - nextcloud_data:
     environment:
-      - POSTGRES_HOST=db-nextcloud
+      - POSTGRES_HOST=postgresql
       - POSTGRES_DB=nextcloud
       - POSTGRES_USER=nextcloud
       - POSTGRES_PASSWORD=<your_password>
+
 volumes:
+  phpmyadmin_data
   nextcloud_db:
   nextcloud_www:
   nextcloud_data:
+  nextcloud_config:
+  nextcloud_sql:
+  nextcloud_themes:
+
 
 
 ### Make sure to replace `<your_password>` with a strong 
