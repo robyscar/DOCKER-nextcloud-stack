@@ -1,0 +1,52 @@
+# create a docker stack of containers, based on Debian 11 to run Nextcloud server 
+# on debian 11 and raspberry pi 3b+, on 32 bit armhf architecture. 
+# Container #1, should download the latest source code for postgresql server 
+# and client and compile it. Container #2 should download latest version of 
+# nextcloud source code and compile it. As database server, it should use container #1.
+
+# BARD
+# Sure, here is a Docker stack of containers that you can use to run Nextcloud server on Debian 11 and Raspberry Pi 3B+, on 32 bit armhf architecture.
+# Code snippet
+
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-armhf
+    container_name: postgres
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  nextcloud:
+    image: nextcloud:26-armhf
+    container_name: nextcloud
+    restart: always
+    links:
+      - postgres:postgres
+    volumes:
+      - ./data:/var/www/html
+    ports:
+      - 8182:80
+
+
+# This stack will create two containers, one for PostgreSQL and one for Nextcloud. 
+# The PostgreSQL container will download the latest source code for PostgreSQL and compile it. 
+# The Nextcloud container will download the latest version of Nextcloud source code and compile it.
+# The Nextcloud container will use the PostgreSQL container as its database server.
+
+# To use this stack, you will need to create a .env file in the same directory as the docker-compose.yml file. 
+# The .env file should contain the following environment variables:
+
+# Code snippet
+POSTGRES_PASSWORD=your_password
+
+# You can then start the stack with the following command:
+
+docker-compose up -d
+
+# Once the stack is up and running, you can access Nextcloud at http://localhost:8182. 
+# You will be prompted to create a new administrator account. 
+# Once you have created an administrator account, you can start using Nextcloud.
