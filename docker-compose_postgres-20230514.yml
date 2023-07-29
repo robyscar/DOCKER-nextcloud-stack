@@ -72,10 +72,15 @@ volumes:
 
 
 ### Make sure to replace `<your_password>` with a strong 
-### password of your choice. After creating this file, you can start the stack by running `docker-compose up -d` in the same directory as the file. This will start both the Nextcloud and PostgreSQL containers and link them together. You can then access Nextcloud by going to `http://localhost:8080` in your web browser ³.
+### password of your choice. After creating this file, you can start the stack by running `docker-compose up -d` 
+### in the same directory as the file. This will start both the Nextcloud and PostgreSQL containers 
+### and link them together. You can then access Nextcloud by going to `http://localhost:8080` in your web browser.
 ### 
-### Is there anything else you would like to know?
+
 ### 
-### Source: Conversation with Bing, 14/05/2023(1) GitHub - nextcloud/docker: ⛴ Docker image of Nextcloud. https://github.com/nextcloud/docker Accessed 14/05/2023.
-### (2) Set up nextcloud with postgres both via docker - Stack Overflow. https://stackoverflow.com/questions/65767128/set-up-nextcloud-with-postgres-both-via-docker Accessed 14/05/2023.
-### (3) Dockerize Nextcloud with Postgre and Redis - DEV Community. https://dev.to/nicolasbonnici/dockerize-nextcloud-with-postgre-and-redis-16jl Accessed 14/05/2023.
+### Source: Conversation with Bing, 14/05/2023(1) GitHub - nextcloud/docker: ⛴ 
+### Docker image of Nextcloud. https://github.com/nextcloud/docker 
+### (2) Set up nextcloud with postgres both via docker - Stack Overflow. 
+### https://stackoverflow.com/questions/65767128/set-up-nextcloud-with-postgres-both-via-docker 
+### (3) Dockerize Nextcloud with Postgre and Redis - DEV Community.
+### https://dev.to/nicolasbonnici/dockerize-nextcloud-with-postgre-and-redis-16jl
