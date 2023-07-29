@@ -31,8 +31,14 @@ services:
 # docker pull qnapsystem/phppgadmin:7.13.0-1
 # 
 
-  phppgadmin"
-    image: 
+#  phppgadmin:
+#    image: 
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
   phpmyadmin:
     image: phpmyadmin
