@@ -34,11 +34,14 @@ services:
 #  phppgadmin:
 #    image: 
 
+### -p host: container	
+### Map TCP port in the CONTAINER to port HOST
+
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 8080:8182
 
   phpmyadmin:
     image: phpmyadmin
@@ -51,10 +54,13 @@ services:
     volumes:
       - phpmyadmin_data:/
 
+### -p host: container	
+### Map TCP port in the CONTAINER to port HOST
+
   app:
     image: nextcloud
     ports:
-      - 81:80
+      - 81:82
     links:
       - postgresql
     volumes:
