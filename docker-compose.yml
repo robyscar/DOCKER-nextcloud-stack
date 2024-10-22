@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   db:
     image: mariadb:10.6
@@ -27,6 +25,8 @@ services:
       - nextcloud:/var/www/html
       - ./app/upload_max_filesize.ini:/usr/local/etc/php/conf.d/upload-max-filesize.ini
       - ./app/memory-limit.ini:/usr/local/etc/php/conf.d/memory-limit.ini
+      - type: tmpfs
+        target: /tmp:exec
     environment:
       - VIRTUAL_HOST=${DNS_ADDRESS}
       - LETSENCRYPT_HOST=${DNS_ADDRESS}
@@ -48,8 +48,8 @@ services:
     build:
       context: ./backup
       args:
-        BORGMATIC_VERSION: 1.7.14
-        RCLONE_VERSION: v1.62.2
+        BORGMATIC_VERSION: 1.8.14
+        RCLONE_VERSION: v1.68.1
     volumes:
       - nextcloud:/mnt/source:ro
       - ${VOLUME_TARGET}:/mnt/borg-repository
