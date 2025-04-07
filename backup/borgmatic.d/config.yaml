@@ -31,6 +31,7 @@ hooks:
         - echo "Backup created..." 
     after_actions:
         - echo "Uploading backup..."
+        - rclone sync /mnt/borg-repository nextcloud:nextcloud-backup -P --dry-run
         - rclone sync /mnt/borg-repository nextcloud:nextcloud-backup -v
         - simplepush.sh -t "Backup done" -m "Creation and uploading of backup successful"
     on_error:
